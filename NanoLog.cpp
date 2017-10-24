@@ -154,7 +154,7 @@ namespace nanolog
     }
 
     template < typename Arg >
-    char * decode(std::ostream & os, char * b, Arg * dummy)
+    char * decode(std::ostream & os, char * b, Arg * /* dummy */)
     {
 	Arg arg = *reinterpret_cast < Arg * >(b);
 	os << arg;
@@ -162,7 +162,7 @@ namespace nanolog
     }
 
     template <>
-    char * decode(std::ostream & os, char * b, NanoLogLine::string_literal_t * dummy)
+    char * decode(std::ostream & os, char * b, NanoLogLine::string_literal_t * /* dummy */)
     {
 	NanoLogLine::string_literal_t s = *reinterpret_cast < NanoLogLine::string_literal_t * >(b);
 	os << s.m_s;
@@ -170,7 +170,7 @@ namespace nanolog
     }
 
     template <>
-    char * decode(std::ostream & os, char * b, char ** dummy)
+    char * decode(std::ostream & os, char * b, char ** /* dummy */)
     {
 	while (*b != '\0')
 	{
@@ -514,7 +514,7 @@ namespace nanolog
 	    if (read_buffer == nullptr)
 		return false;
 
-	    if (bool success = read_buffer->try_pop(logline, m_read_index))
+	    if (read_buffer->try_pop(logline, m_read_index))
 	    {
 		m_read_index++;
 		if (m_read_index == Buffer::size)
@@ -615,7 +615,7 @@ namespace nanolog
 	    m_state.store(State::READY, std::memory_order_release);
 	}
 
-	NanoLogger(GuaranteedLogger gl, std::string const & log_directory, std::string const & log_file_name, uint32_t log_file_roll_size_mb)
+      NanoLogger(GuaranteedLogger /* gl */, std::string const & log_directory, std::string const & log_file_name, uint32_t log_file_roll_size_mb)
 	    : m_state(State::INIT)
 	    , m_buffer_base(new QueueBuffer())
 	    , m_file_writer(log_directory, log_file_name, std::max(1u, log_file_roll_size_mb))

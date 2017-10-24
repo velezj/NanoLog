@@ -31,6 +31,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SO
 #include <string>
 #include <iosfwd>
 #include <type_traits>
+#include <sstream>
 
 namespace nanolog
 {
@@ -161,6 +162,8 @@ namespace nanolog
 #define LOG_INFO nanolog::is_logged(nanolog::LogLevel::INFO) && NANO_LOG(nanolog::LogLevel::INFO)
 #define LOG_WARN nanolog::is_logged(nanolog::LogLevel::WARN) && NANO_LOG(nanolog::LogLevel::WARN)
 #define LOG_CRIT nanolog::is_logged(nanolog::LogLevel::CRIT) && NANO_LOG(nanolog::LogLevel::CRIT)
+
+#define LINESTRING(x) ( static_cast<std::ostringstream&>( std::ostringstream() << x ).str() )
 
 #endif /* NANO_LOG_HEADER_GUARD */
 
