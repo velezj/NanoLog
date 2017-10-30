@@ -20,5 +20,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 
 # the library
+find_package (Threads)
 add_library (NanoLog STATIC NanoLog.cpp)
 target_include_directories (NanoLog PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
+target_link_libraries (NanoLog Threads::Threads)
